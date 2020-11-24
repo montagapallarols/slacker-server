@@ -11,7 +11,10 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       list.belongsTo(models.profile);
-      list.hasMany(models.item);
+      list.belongsToMany(models.item, {
+        through: "listItems",
+        foreignKey: "listId",
+      });
     }
   };
   list.init({
