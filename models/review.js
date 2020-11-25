@@ -16,7 +16,7 @@ module.exports = (sequelize, DataTypes) => {
   };
   review.init({
     name: DataTypes.STRING,
-    content: { type: DataTypes.STRING, allowNull: false }
+    content: { type: DataTypes.TEXT, allowNull: false }
   }, {
     sequelize,
     modelName: 'review',
