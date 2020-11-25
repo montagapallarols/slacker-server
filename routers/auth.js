@@ -4,7 +4,9 @@ const { toJWT } = require("../auth/jwt");
 const authMiddleware = require("../auth/middleware");
 const User = require("../models").user;
 const Profile = require("../models").profile;
-const List = require("../models").list
+const List = require("../models").list;
+const Review = require("../models").review;
+const Item = require("../models").item;
 const { SALT_ROUNDS } = require("../config/constants");
 
 const router = new Router();
@@ -99,6 +101,16 @@ router.post("/login", async (req, res, next) => {
     }
   });
   
+
+  router.get("/reviews", async (req, res, next) => {
+    try {
+      const allReviews = await Review.findAll({include: [Profile, Item]});
+      res.json(allReviews);
+    } catch (e) {
+      next(e);
+    }
+  });
+
 
 
   // The /me endpoint can be used to:
