@@ -8,11 +8,14 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      fullName: {
+      firstName: {
+        type: Sequelize.STRING
+      },
+      lastName: {
         type: Sequelize.STRING
       },
       imageUrl: {
-        type: Sequelize.STRING
+        type: Sequelize.TEXT
       },
       createdAt: {
         allowNull: false,

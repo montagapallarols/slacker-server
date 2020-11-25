@@ -47,26 +47,45 @@ router.post("/login", async (req, res, next) => {
     if (!email || !password || !fullName) {
       return res.status(400).send("Please provide an email, password and a name");
     }
-  
+    
     try {
-      const newUser = await User.create({
+        const newUser = await User.create({
+        fullName,
         email,
-        password: bcrypt.hashSync(password, SALT_ROUNDS),
-        fullNname
+        password: bcrypt.hashSync(password, SALT_ROUNDS)
       });
-  
-      const newProfile = await Profile.create({
-        userId: newUser.id,
-        fullName: `${newUser.fullName}'s space`,
-        imageUrl: req.body.imageUrl
-      }, {include: [List]})
-  
+      console.log("new user id", newUser.id)
+
       delete newUser.dataValues["password"]; // don't send back the password hash
   
       const token = toJWT({ userId: newUser.id });
-      // console.log("New Space created on signup", newSpace)
+
+      const newProfile = await Profile.create({
+        fullName: newUser.fullName,
+        imageUrl: "https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_1280.png",
+        userId: newUser.id
+      })
+
+      const newList = await List.create([{
+        type:`${newUser.fullName}'s Favourites`,
+        profileId: newProfile.id,
+      }, 
+    { 
+        type: `${newUser.fullName}'s Library`,
+        profileId: newProfile.id,
+    }, 
+    { 
+        type: `${newUser.fullName}'s Wishlist`,
+        profileId: newProfile.id,
+    }, 
+]);
   
-      res.status(201).json({ token, ...newUser.dataValues, profile: newProfile.dataValues });
+      console.log("New user", newUser)
+      console.log("New profile", newProfile)
+     
+      console.log("New Profile created on signup", newProfile.dataValues)
+  
+      res.status(201).json({ token, ...newUser.dataValues, ...newProfile.dataValues, ...newList.dataValues });
     } catch (error) {
       if (error.name === "SequelizeUniqueConstraintError") {
         return res
@@ -78,6 +97,22 @@ router.post("/login", async (req, res, next) => {
     }
   });
   
+
+//   router.post("/profile", async (req, res) => {
+//     const newProfile = await Profile.create({
+//         // fullName,
+//         // imageUrl,
+//         userId: newUser.id
+//       })
+//       console.log("new profile", newProfile)
+//       res.status(200).send(newProfile);
+//   })
+
+  
+  
+
+
+
   // The /me endpoint can be used to:
   // - get the users email & name using only their token
   // - checking if a token is (still) valid
