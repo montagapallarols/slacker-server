@@ -100,20 +100,6 @@ router.post("/login", async (req, res, next) => {
   });
   
 
-//   router.post("/profile", async (req, res) => {
-//     const newProfile = await Profile.create({
-//         // fullName,
-//         // imageUrl,
-//         userId: newUser.id
-//       })
-//       console.log("new profile", newProfile)
-//       res.status(200).send(newProfile);
-//   })
-
-  
-  
-
-
 
   // The /me endpoint can be used to:
   // - get the users email & name using only their token

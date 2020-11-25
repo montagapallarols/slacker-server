@@ -7,7 +7,7 @@ const router = new Router();
 
 router.get("/", async (req, res, next) => {
     try {
-      const allProfiles = await Profile.findAll({include: [User]});
+      const allProfiles = await Profile.findAll({include: [User, List]});
       res.json(allProfiles);
     } catch (e) {
       next(e);

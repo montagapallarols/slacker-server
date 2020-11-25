@@ -5,6 +5,7 @@ const { PORT } = require("./config/constants");
 const authRouter = require("./routers/auth");
 const profileRouter = require("./routers/profiles");
 const listRouter = require("./routers/lists");
+const categoryRouter = require("./routers/categories");
 const authMiddleWare = require("./auth/middleware");
 
 const app = express();
@@ -56,6 +57,7 @@ app.post("/authorized_post_request", authMiddleWare, (req, res) => {
 app.use("/", authRouter);
 app.use("/profiles", profileRouter);
 app.use("/lists", listRouter);
+app.use("/categories", categoryRouter);
 
 
 
