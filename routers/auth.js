@@ -43,14 +43,15 @@ router.post("/login", async (req, res, next) => {
   });
   
   router.post("/signup", async (req, res) => {
-    const { email, password, fullName, imageUrl } = req.body;
-    if (!email || !password || !fullName) {
-      return res.status(400).send("Please provide an email, password and a name");
+    const { email, password, firstName, lastName } = req.body;
+    if (!email || !password || !firstName || !lastName) {
+      return res.status(400).send("Please provide an email, password and your full name");
     }
     
     try {
         const newUser = await User.create({
-        fullName,
+        firstName,
+        lastName,
         email,
         password: bcrypt.hashSync(password, SALT_ROUNDS)
       });
@@ -61,31 +62,32 @@ router.post("/login", async (req, res, next) => {
       const token = toJWT({ userId: newUser.id });
 
       const newProfile = await Profile.create({
-        fullName: newUser.fullName,
+        firstName: newUser.firstName,
+        lastName: newUser.lastName,
         imageUrl: "https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_1280.png",
         userId: newUser.id
       })
 
-      const newList = await List.create([{
-        type:`${newUser.fullName}'s Favourites`,
+      const newLists = await List.bulkCreate([{
+        type:`${newUser.firstName}'s Favourites`,
         profileId: newProfile.id,
-      }, 
-    { 
-        type: `${newUser.fullName}'s Library`,
+      },
+      {
+        type:`${newUser.firstName}'s Library`,
         profileId: newProfile.id,
-    }, 
-    { 
-        type: `${newUser.fullName}'s Wishlist`,
+      },
+      {
+        type:`${newUser.firstName}'s Wishlist`,
         profileId: newProfile.id,
-    }, 
-]);
+      }]);
   
+      console.log("New lists", newLists)
       console.log("New user", newUser)
       console.log("New profile", newProfile)
      
       console.log("New Profile created on signup", newProfile.dataValues)
   
-      res.status(201).json({ token, ...newUser.dataValues, ...newProfile.dataValues, ...newList.dataValues });
+      res.status(201).json({ token, ...newUser.dataValues, ...newProfile.dataValues, ...newLists.dataValues });
     } catch (error) {
       if (error.name === "SequelizeUniqueConstraintError") {
         return res
