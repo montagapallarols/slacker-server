@@ -13,7 +13,7 @@ module.exports = {
           updatedAt: new Date(),
         },
         {
-          fullName: "Sal Paradise",
+          fullName: "Jane Doe",
           imageUrl: "https://i.picsum.photos/id/565/200/200.jpg?hmac=QvKo8qgzFFNcZoXCpT0CNMDTwWd3ynwqLXxrzK2o8fw",
           userId: 2,
           createdAt: new Date(),
