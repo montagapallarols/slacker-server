@@ -6,37 +6,37 @@ module.exports = {
       "lists",
       [
         {
-          type: "Montaga's Favourites",
+          type: "Favourites",
           profileId: 1,
           createdAt: new Date(),
           updatedAt: new Date(),
         },
         {
-          type: "Montaga's Library",
+          type: "Library",
           profileId: 1,
           createdAt: new Date(),
           updatedAt: new Date(),
         },
         {
-          type: "Montaga's Wishlist",
+          type: "Wishlist",
           profileId: 1,
           createdAt: new Date(),
           updatedAt: new Date(),
         },
         {
-          type: "Jane's Favourites",
+          type: "Favourites",
           profileId: 2,
           createdAt: new Date(),
           updatedAt: new Date(),
         },
         {
-          type: "Jane's Library",
+          type: "Library",
           profileId: 2,
           createdAt: new Date(),
           updatedAt: new Date(),
         },
         {
-          type: "Jane's Wishlist",
+          type: "Wishlist",
           profileId: 2,
           createdAt: new Date(),
           updatedAt: new Date(),
