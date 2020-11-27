@@ -12,7 +12,7 @@ module.exports = {
         type: Sequelize.STRING
       },
       apiId: {
-        type: Sequelize.INTEGER
+        type: Sequelize.STRING
       },
       apiName: {
         type: Sequelize.STRING
