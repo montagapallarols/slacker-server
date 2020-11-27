@@ -24,6 +24,27 @@ router.get("/", async (req, res, next) => {
     }
   });
 
+  router.get("/listItems/favourites/:categoryId", async (req, res, next) => {
+    try {
+      const allFavouriteFilms = await ListItem.findAll({
+        include: [{
+          model: List,
+          where: {
+            type: 'Favourites'
+          }
+        }, {
+          model: Item,
+          where: {
+            categoryId: req.params.categoryId
+          }
+        }]
+      });
+      res.json(allFavouriteFilms);
+    } catch (e) {
+      next(e);
+    }
+  });
+
 
 
 module.exports = router;

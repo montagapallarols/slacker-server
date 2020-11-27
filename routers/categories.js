@@ -13,4 +13,8 @@ router.get("/", async (req, res, next) => {
   });
 
 
+// const categories = await axios.get('/categories');
+// categories.map((category) => <button onClick={()=>{setCategoryFilter(category.id)}}>Show all {category.name}</button>)
+
+
 module.exports = router;
