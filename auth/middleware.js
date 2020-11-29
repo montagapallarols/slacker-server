@@ -1,6 +1,5 @@
-// const User = require("../models").user;
-// const Space = require("../models").space;
-// const Story = require("../models").story;
+const User = require("../models").user;
+const Profile = require("../models").profile;
 const { toData } = require("./jwt");
 
 async function auth(req, res, next) {
@@ -17,17 +16,16 @@ async function auth(req, res, next) {
 
   try {
     const data = toData(auth[1]);
-    const user = await User.findByPk(data.userId, {include: [{model: Space, include: [Story]}]});
+    const user = await User.findByPk(data.userId, {include: [{model: Profile}]});
     if (!user) {
       return res.status(404).send({ message: "User does not exist" });
     }
-    // console.log("USER WITH SPACE", user)
+    console.log("USER WITH PROFILE", user)
 
-    // const userSpace = await Space.findOne({
-    //   where: { userId: user.dataValues.id},
-    //   include: [Story],
-    // })
-    // console.log("Middleware user Space", userSpace.dataValues)
+    const userProfile = await Profile.findOne({
+      where: { userId: user.dataValues.id}
+    })
+    console.log("Middleware user Profile", userProfile.dataValues)
     
 
     // add user object to request
