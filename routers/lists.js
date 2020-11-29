@@ -2,6 +2,7 @@ const { Router } = require("express");
 const List = require("../models").list;
 const ListItem = require("../models").listItem;
 const Item = require("../models").item;
+const User = require("../models").user;
 const Profile = require("../models").profile;
 const router = new Router();
 
@@ -26,7 +27,7 @@ router.get("/", async (req, res, next) => {
 
   router.get("/listItems/favourites/:categoryId", async (req, res, next) => {
     try {
-      const allFavouriteFilms = await ListItem.findAll({
+      const allFavouritesByCategory = await ListItem.findAll({
         include: [{
           model: List,
           where: {
@@ -39,7 +40,26 @@ router.get("/", async (req, res, next) => {
           }
         }]
       });
-      res.json(allFavouriteFilms);
+      res.json(allFavouritesByCategory);
+    } catch (e) {
+      next(e);
+    }
+  });
+
+  router.get("/listItems/favourites", async (req, res, next) => {
+    try {
+      const userFavourites = await ListItem.findAll({
+        include: [{
+          model: List,
+          where: {
+            type: 'Favourites'
+          }
+        }, {
+          model: Item
+        }
+      ]
+      });
+      res.json(userFavourites);
     } catch (e) {
       next(e);
     }
