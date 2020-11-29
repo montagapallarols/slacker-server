@@ -31,7 +31,7 @@ async function auth(req, res, next) {
     // add user object to request
     req.user = user
   
-    // res.send({space: userSpace.dataValues.space, stories: [userSpace.dataValues.stories]})
+    // res.send({profile: userProfile.dataValues.profile})
     // next handler
     return next();
   } catch (error) {
