@@ -66,13 +66,12 @@ router.get("/", async (req, res, next) => {
   });
 
   router.post("/library/listItems", async (req, res, next) => {
-    const { name, year, genre, director, plot, poster, type, apiId, apiName, categoryId } = req.body;
+    const { name, year, genre, director, plot, poster, type, apiId, apiName, categoryId, listId } = req.body;
    
-    if (!name || !year || !genre || !director || !plot || !poster || !type || !apiId || !apiName || !categoryId ) {
+    if (!name || !year || !genre || !director || !plot || !poster || !type || !apiId || !apiName || !categoryId || !listId) {
       return res.status(400).send("There is some missing info!");
     }
     try {
-      
       const existingItem = await Item.findOne({ where: { apiId: apiId } })
       if (!existingItem) {
         const newItem = await Item.create({
@@ -87,9 +86,17 @@ router.get("/", async (req, res, next) => {
           apiName,
           categoryId
         })
-        res.json(newItem)
+        const newListItem = await ListItem.create({
+          listId: listId,
+          itemId: newItem.id
+        })
+        res.json(newListItem)
       } else {
-        res.json(existingItem)
+        const newItemToList = await ListItem.create({
+          listId: listId,
+          itemId: existingItem.id
+        })
+        res.json(newItemToList)
       }
      
     } catch(e) {
