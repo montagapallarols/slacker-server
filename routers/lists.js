@@ -75,16 +75,16 @@ router.get("/", async (req, res, next) => {
       const existingItem = await Item.findOne({ where: { apiId: apiId } })
       if (!existingItem) {
         const newItem = await Item.create({
-          name,
-          year,
-          genre,
-          director,
-          plot,
-          poster,
-          type,
-          apiId,
-          apiName,
-          categoryId
+          name: name,
+          year: year,
+          genre: genre,
+          director: director,
+          plot: plot,
+          poster: poster,
+          type: type,
+          apiId: apiId,
+          apiName: apiName,
+          categoryId: categoryId
         })
         const newListItem = await ListItem.create({
           listId: listId,
@@ -100,6 +100,7 @@ router.get("/", async (req, res, next) => {
       }
      
     } catch(e) {
+      console.log("What is the ERROR?", e)
       next(e);
     }
   }) 
