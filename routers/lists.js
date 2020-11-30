@@ -65,6 +65,37 @@ router.get("/", async (req, res, next) => {
     }
   });
 
+  router.post("/library/listItems", async (req, res, next) => {
+    const { name, year, genre, director, plot, poster, type, apiId, apiName, categoryId } = req.body;
+   
+    if (!name || !year || !genre || !director || !plot || !poster || !type || !apiId || !apiName || !categoryId ) {
+      return res.status(400).send("There is some missing info!");
+    }
+    try {
+      
+      const existingItem = await Item.findOne({ where: { apiId: apiId } })
+      if (!existingItem) {
+        const newItem = await Item.create({
+          name,
+          year,
+          genre,
+          director,
+          plot,
+          poster,
+          type,
+          apiId,
+          apiName,
+          categoryId
+        })
+        res.json(newItem)
+      } else {
+        res.json(existingItem)
+      }
+     
+    } catch(e) {
+      next(e);
+    }
+  }) 
 
 
 module.exports = router;

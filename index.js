@@ -6,6 +6,7 @@ const authRouter = require("./routers/auth");
 const profileRouter = require("./routers/profiles");
 const listRouter = require("./routers/lists");
 const categoryRouter = require("./routers/categories");
+const itemRouter = require("./routers/items");
 const authMiddleWare = require("./auth/middleware");
 
 const app = express();
@@ -58,6 +59,7 @@ app.use("/", authRouter);
 app.use("/profiles", profileRouter);
 app.use("/lists", listRouter);
 app.use("/categories", categoryRouter);
+app.use("/items", itemRouter);
 
 
 
