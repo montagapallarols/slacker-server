@@ -72,6 +72,9 @@ router.get("/", async (req, res, next) => {
       return res.status(400).send("There is some missing info!");
     }
     try {
+      
+      const list = await List.findByPk(listId)
+      
       const existingItem = await Item.findOne({ where: { apiId: apiId } })
       if (!existingItem) {
         const newItem = await Item.create({
@@ -90,13 +93,15 @@ router.get("/", async (req, res, next) => {
           listId: listId,
           itemId: newItem.id
         })
-        res.json(newListItem)
+        const response = {...newListItem.dataValues, list, item: newItem}
+        res.json(response)
       } else {
         const newItemToList = await ListItem.create({
           listId: listId,
           itemId: existingItem.id
         })
-        res.json(newItemToList)
+        const response = {...newItemToList.dataValues, list, item: existingItem}
+        res.json(response)
       }
      
     } catch(e) {
