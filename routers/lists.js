@@ -110,7 +110,7 @@ router.get("/", async (req, res, next) => {
     }
   }) 
 
-  router.delete("/listItems/:itemApiId", async (req, res, next) => {
+  router.delete("/library/listItems/:itemApiId", async (req, res, next) => {
     try {
       const itemApiId = req.params.itemApiId
       const foundListItem = await ListItem.findOne({
@@ -119,8 +119,13 @@ router.get("/", async (req, res, next) => {
           where: {
             apiId: itemApiId
           }
-        }]});
-        console.log("LIST ITEMS", foundListItem)
+        }, {
+          model: List,
+          where: {
+            type: "Library"
+          }
+      }]});
+      console.log("FOUND LIST ITEM", foundListItem)
         const thisListItem = foundListItem.dataValues
         console.log("THIS list item", thisListItem)
       if (!foundListItem) {
