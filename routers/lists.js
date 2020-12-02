@@ -65,7 +65,7 @@ router.get("/", async (req, res, next) => {
     }
   });
 
-  router.post("/library/listItems", async (req, res, next) => {
+  router.post("/selectedList/listItems", async (req, res, next) => {
     const { name, year, genre, director, plot, poster, type, apiId, apiName, categoryId, listId } = req.body;
    
     if (!name || !year || !genre || !director || !plot || !poster || !type || !apiId || !apiName || !categoryId || !listId) {
