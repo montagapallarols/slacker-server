@@ -173,4 +173,36 @@ router.get("/", async (req, res, next) => {
   });
 
 
+  router.delete("/favourites/listItems/:itemApiId", async (req, res, next) => {
+    try {
+      const itemApiId = req.params.itemApiId
+      const foundListItem = await ListItem.findOne({
+        include: [{
+          model: Item,
+          where: {
+            apiId: itemApiId
+          }
+        }, {
+          model: List,
+          where: {
+            type: "Favourites"
+          }
+      }]});
+      console.log("FOUND LIST ITEM", foundListItem)
+        const thisListItem = foundListItem.dataValues
+        console.log("THIS list item", thisListItem)
+      if (!foundListItem) {
+        res.status(404).send("List item not found!")
+      } else {
+        await ListItem.destroy({
+          where: { id: thisListItem.id }
+         });
+        res.json(thisListItem);
+      }
+    } catch (e) {
+      next(e);
+    }
+  });
+
+
 module.exports = router;
