@@ -20,7 +20,13 @@ module.exports = (sequelize, DataTypes) => {
   };
   item.init({
     name: DataTypes.STRING,
-    apiId: DataTypes.INTEGER,
+    year: DataTypes.STRING,
+    genre: DataTypes.STRING,
+    director: DataTypes.STRING,
+    plot: DataTypes.TEXT,
+    poster: DataTypes.TEXT,
+    type: DataTypes.STRING,
+    apiId: DataTypes.STRING,
     apiName: DataTypes.STRING
   }, {
     sequelize,

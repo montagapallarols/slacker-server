@@ -3,41 +3,35 @@
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.bulkInsert(
-      "lists",
+      "listItems",
       [
         {
-          type: "Favourites",
-          profileId: 1,
+          listId: 1,
+          itemId: 1,
           createdAt: new Date(),
           updatedAt: new Date(),
         },
         {
-          type: "Library",
-          profileId: 1,
+          listId: 1,
+          itemId: 2,
           createdAt: new Date(),
           updatedAt: new Date(),
         },
         {
-          type: "Wishlist",
-          profileId: 1,
+          listId: 4,
+          itemId: 3,
           createdAt: new Date(),
           updatedAt: new Date(),
         },
         {
-          type: "Favourites",
-          profileId: 2,
+          listId: 4,
+          itemId: 4,
           createdAt: new Date(),
           updatedAt: new Date(),
         },
         {
-          type: "Library",
-          profileId: 2,
-          createdAt: new Date(),
-          updatedAt: new Date(),
-        },
-        {
-          type: "Wishlist",
-          profileId: 2,
+          listId: 1,
+          itemId: 5,
           createdAt: new Date(),
           updatedAt: new Date(),
         },
@@ -47,6 +41,6 @@ module.exports = {
   },
 
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.bulkDelete("lists", null, {});
+    await queryInterface.bulkDelete("listItems", null, {});
   }
 };

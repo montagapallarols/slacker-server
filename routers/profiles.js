@@ -1,6 +1,7 @@
 const { Router } = require("express");
 const Profile = require("../models").profile;
 const List = require("../models").list;
+const ListItem = require("../models").listItem;
 const User = require("../models").user;
 const router = new Router();
 

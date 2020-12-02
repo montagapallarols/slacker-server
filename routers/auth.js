@@ -71,15 +71,15 @@ router.post("/login", async (req, res, next) => {
       })
 
       const newLists = await List.bulkCreate([{
-        type:`${newUser.firstName}'s Favourites`,
+        type: "Favourites",
         profileId: newProfile.id,
       },
       {
-        type:`${newUser.firstName}'s Library`,
+        type: "Library",
         profileId: newProfile.id,
       },
       {
-        type:`${newUser.firstName}'s Wishlist`,
+        type: "Wishlist",
         profileId: newProfile.id,
       }]);
   
