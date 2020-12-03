@@ -23,7 +23,8 @@ async function auth(req, res, next) {
     console.log("USER WITH PROFILE", user)
 
     const userProfile = await Profile.findOne({
-      where: { userId: user.dataValues.id}
+      where: { userId: user.dataValues.id},
+      include: [List],
     })
     console.log("Middleware user Profile", userProfile.dataValues)
     

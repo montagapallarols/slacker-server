@@ -17,7 +17,7 @@ module.exports = (sequelize, DataTypes) => {
   listItem.init({
     listId: DataTypes.INTEGER,
     itemId: DataTypes.INTEGER,
-    // rating: DataTypes.INTEGER
+
   }, {
     sequelize,
     modelName: 'listItem',

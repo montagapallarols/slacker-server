@@ -27,27 +27,28 @@ router.get("/all", async (req, res, next) => {
   });
 
   router.post("/:apiId/:profileId", async (req, res, next) => {
-    const { name, content, rating } = req.body;
-    const apiId = req.params.apiId
-    const profileId = parseInt(req.params.profileId)
-   
+      const apiId = req.params.apiId
+      const profileId = parseInt(req.params.profileId)
+      const { name, content, rating } = req.body;
+
     if (!name || !content || !rating ) {
       return res.status(400).send("Please provide a name, content and rating for your review.");
     }
     try {
-      
+
       const foundItem = await Item.findOne({ where: { apiId: apiId } })
-      
+        console.log("FOUND ITEM?????", foundItem)
+        const foundItemId = foundItem.dataValues.id
         const newReview = await Review.create({
           name: name,
           content: content,
           rating: rating,
           profileId: profileId,
-          itemId: foundItem.id
+          itemId: foundItemId
         })
         
-    res.json(newReview)
-     
+        res.json(newReview)
+
     } catch(e) {
       console.log("What is the ERROR?", e)
       next(e);
