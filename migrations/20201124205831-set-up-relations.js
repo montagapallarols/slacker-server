@@ -32,7 +32,7 @@ module.exports = {
     await queryInterface.addColumn("reviews", "profileId", {
       type: Sequelize.INTEGER,
       references: {
-      model: "reviews",
+      model: "profiles",
       key: "id",
     },
     onUpdate: "CASCADE",
@@ -41,7 +41,7 @@ module.exports = {
     await queryInterface.addColumn("reviews", "itemId", {
       type: Sequelize.INTEGER,
       references: {
-      model: "reviews",
+      model: "items",
       key: "id",
     },
     onUpdate: "CASCADE",

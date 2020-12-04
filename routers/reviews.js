@@ -37,8 +37,9 @@ router.get("/all", async (req, res, next) => {
     try {
 
       const foundItem = await Item.findOne({ where: { apiId: apiId } })
-        console.log("FOUND ITEM?????", foundItem)
+        // console.log("FOUND ITEM?????", foundItem)
         const foundItemId = foundItem.dataValues.id
+        // console.log("Found item id", foundItemId)
         const newReview = await Review.create({
           name: name,
           content: content,

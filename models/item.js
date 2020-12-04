@@ -15,7 +15,9 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: "itemId",
       });
       item.belongsTo(models.category);
-      item.hasMany(models.review);
+      item.hasMany(models.review, {
+        constraints: false,
+      });
     }
   };
   item.init({

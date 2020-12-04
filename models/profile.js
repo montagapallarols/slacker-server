@@ -12,7 +12,10 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       profile.belongsTo(models.user);
       profile.hasMany(models.list);
-      profile.hasMany(models.review);
+      profile.hasMany(models.review, {
+        // foreignKey: 'ingredientId',
+        constraints: false,
+      });
     }
   };
   profile.init({
