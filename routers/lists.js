@@ -197,7 +197,21 @@ router.get("/", async (req, res, next) => {
         await ListItem.destroy({
           where: { id: thisListItem.id }
          });
-        res.json(thisListItem);
+
+         const userFavourites = await ListItem.findAll({
+          include: [{
+            model: List,
+            where: {
+              type: 'Favourites'
+            }
+          }, {
+            model: Item
+          }
+        ]
+        });
+
+
+        res.json(userFavourites);
       }
     } catch (e) {
       next(e);
