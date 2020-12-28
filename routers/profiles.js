@@ -16,7 +16,7 @@ router.get("/", async (req, res, next) => {
     }
   });
 
-router.patch("/:profileId", async (req, res, next) => {
+router.patch("/:profileId", authMiddleware, async (req, res, next) => {
   try {
     const profileId = parseInt(req.params.profileId)
     const { imageUrl } = req.body
